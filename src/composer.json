@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "XM\\": "XM"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.4"
+    },
+    "require": {
+        "ext-pdo": "*",
+        "twig/twig": "^3.0",
+        "ext-mysqli": "*"
+    }
+}

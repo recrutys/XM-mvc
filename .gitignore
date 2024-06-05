@@ -1,0 +1,4 @@
+src/vendor
+src/composer.lock
+.idea
+error.log
