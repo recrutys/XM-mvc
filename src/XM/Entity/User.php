@@ -7,11 +7,6 @@ use XM\Mvc\Entity\Structure;
 
 class User extends Entity
 {
-	public function test(): string
-	{
-		return 'test entity function';
-	}
-
 	protected function getStructure(): Structure
 	{
 		$structure = new Structure();
