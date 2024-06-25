@@ -11,22 +11,27 @@ class AbstractCollection implements \ArrayAccess
 		return count($this->entities);
 	}
 
+	public function toArray(): array
+	{
+		return (array) $this->entities;
+	}
+
 	public function offsetExists($offset): bool
 	{
 		return isset($this->entities[$offset]);
 	}
 
-	public function offsetGet($offset): mixed
+	public function offsetGet($offset)
 	{
 		return $this->entities[$offset];
 	}
 
-	public function offsetSet($offset, $value): void
+	public function offsetSet($offset, $value)
 	{
 		$this->entities[$offset] = $value;
 	}
 
-	public function offsetUnset($offset): void
+	public function offsetUnset($offset)
 	{
 		unset($this->entities[$offset]);
 	}

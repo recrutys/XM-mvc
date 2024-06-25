@@ -10,7 +10,7 @@ class Index extends Controller
 	public function actionIndex(): View
 	{
 		return $this->view('index', [
-			'id' => '1234'
+			'app' => \XM::app()
 		]);
 	}
 }

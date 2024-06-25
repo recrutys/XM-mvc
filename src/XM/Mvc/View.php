@@ -2,6 +2,9 @@
 
 namespace XM\Mvc;
 
+use Latte\Engine;
+use Latte\Runtime\Template;
+
 class View
 {
 	protected $templater;
@@ -16,7 +19,7 @@ class View
 		$this->templateName = $templateName;
 		$this->params = $viewParams;
 
-		$this->renderTemplate();
+		return $this->renderTemplate();
 	}
 
 	public function getParams(): array
@@ -28,21 +31,21 @@ class View
 	{
 		try
 		{
-			$this->templater->render($this->templateName, $this->params);
-
-			$content = $this->templater->render('PAGE_CONTAINER.html', [
-				'content' => $this->templater->render($this->templateName, $this->params),
-				'lessUrl' => $this->getLessUrl()
-			]);
+			/** @var Template $template */
+			return $this->templater->render($this->templateName, $this->params);
 		}
 		catch (\Throwable $e)
 		{
-			$content = $e->getMessage();
+			throw $this->templater->render(
+				\XM::app()->templater()->getTemplateFullPath('error'),
+				[
+					'message' => $e->getMessage()
+				]
+			);
 		}
-
-		echo $content;
 	}
 
+	// TODO: Use this func
 	protected function getLessUrl(): string
 	{
 		$lessFiles = \XM::app()->templater()->getLocalIncludedLessFiles();

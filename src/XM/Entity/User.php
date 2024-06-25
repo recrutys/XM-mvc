@@ -22,6 +22,7 @@ class User extends Entity
 			'register_date' => ['type' => self::INT, 'default' => \XM::$time],
 			'last_activity' => ['type' => self::INT, 'default' => 0],
 			'secret_key'    => ['type' => self::STR, 'required' => true, 'maxLength' => 255],
+			'language_id' => ['type' => self::INT, 'required' => true, 'default' => 1],
 			'password'      => ['type' => self::STR, 'required' => true, 'maxLength' => 255],
 			'is_admin'      => ['type' => self::INT, 'default' => false]
 		];

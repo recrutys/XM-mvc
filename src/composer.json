@@ -9,7 +9,7 @@
     },
     "require": {
         "ext-pdo": "*",
-        "twig/twig": "^3.0",
-        "ext-mysqli": "*"
+        "ext-mysqli": "*",
+        "latte/latte": "^2.11"
     }
 }

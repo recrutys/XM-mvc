@@ -13,11 +13,13 @@ class Session
 			return 0;
 		}
 
-		$visitor = \XM::app()->db()->query('SELECT * FROM app_users WHERE secret_key = ?', [$userKey], true);
+		$user = \XM::app()->em()->findOne('XM:User', [
+			'secret_key' => $userKey
+		]);
 
-		if ($visitor)
+		if ($user)
 		{
-			return $visitor;
+			return $user;
 		}
 
 		return 0;

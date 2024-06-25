@@ -84,7 +84,7 @@ class XM
 		$router = self::$app->router();
 
 		$router->register('/', ['controller' => 'XM\Controller\Pub\Index', 'action' => 'index']);
-		$router->register('test', ['controller' => 'XM\Controller\Pub\Index', 'action' => 'test']);
+		$router->register('register', ['controller' => 'XM\Controller\Pub\Register', 'action' => 'index']);
 		$router->register('members', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'index']);
 		$router->register('members/{user_id}', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'view']);
 		$router->register('members/{user_id}/edit', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'edit']);
@@ -121,5 +121,10 @@ class XM
 	public static function config()
 	{
 		return self::$app->config();
+	}
+
+	public static function visitor()
+	{
+		return self::$app->visitor();
 	}
 }

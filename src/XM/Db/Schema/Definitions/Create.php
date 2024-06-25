@@ -74,7 +74,12 @@ class Create extends AbstractDefinition
 			$query .= 'PRIMARY KEY (';
 			$primaryColumn = end($this->primaryColumns);
 
-			if (!$this->autoIncrementColumn)
+			// Auto Increment
+			if ($this->autoIncrementColumn)
+			{
+				$query .= $this->autoIncrementColumn . ')';
+			}
+			else
 			{
 				// Non auto increment
 				$column = $this->columns[$primaryColumn];
@@ -88,12 +93,6 @@ class Create extends AbstractDefinition
 					$query .= $column . ')';
 				}
 			}
-			else // Auto Increment
-			{
-				$query .= $this->autoIncrementColumn . ')';
-			}
-
-			$query .= ')';
 		}
 		else
 		{

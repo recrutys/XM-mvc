@@ -9,6 +9,7 @@ use XM\Http\Session;
 use XM\Mvc\Entity\Manager;
 use XM\Mvc\Router;
 use XM\Service\AbstractService;
+use XM\Templater\Templater;
 
 class App
 {
@@ -98,14 +99,41 @@ class App
 			return $this->container('session')->visitor();
 		};
 
+		$container['language'] = function ($languageId)
+		{
+			return new Language($languageId);
+		};
+
+		$container['phrase'] = function ($name, $params)
+		{
+			return new Phrase($name, $params);
+		};
+
+		$container['service'] = function ($class)
+		{
+			return new AbstractService($class);
+		};
+
 		$container['local.lessFiles'] = [
 			'extra.less' => 'pub'
 		];
 	}
 
-	public function container($key = null)
+	public function container($key = null, ...$args)
 	{
-		return $key === null ? $this->container : (is_object($this->container[$key]) ? $this->container[$key]() : $this->container[$key]);
+		if ($key === null)
+		{
+			return $this->container;
+		}
+
+		$containerItem = $this->container[$key];
+
+		if (is_object($containerItem))
+		{
+			return $containerItem(...$args);
+		}
+
+		return $containerItem;
 	}
 
 	/**
@@ -158,12 +186,33 @@ class App
 
 	public function service($class): AbstractService
 	{
-		return new AbstractService($class);
+		return $this->container('service', $class);
 	}
 
 	public function visitor()
 	{
 		return $this->container('visitor');
+	}
+
+	/**
+	 * @param int $languageId
+	 *
+	 * @return Language
+	 */
+	public function language(int $languageId = 0)
+	{
+		return $this->container('language', $languageId);
+	}
+
+	/**
+	 * @param       $name
+	 * @param array $params
+	 *
+	 * @return Phrase
+	 */
+	public function phrase($name, array $params = []): Phrase
+	{
+		return $this->container('phrase', $name, $params);
 	}
 
 	/**

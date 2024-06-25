@@ -21,7 +21,7 @@ class Controller
 	{
 		if (\XM::app()->request()->isPost())
 		{
-			die('Доступ к странице должет осуществляться через POST');
+			die('Доступ к странице должет осуществляться через POST'); // TODO: Add phrase action_available_via_post_only
 		}
 	}
 
@@ -42,7 +42,7 @@ class Controller
 		]);
 	}
 
-	public function noPermission()
+	public function noPermission(): View
 	{
 		return $this->templater->renderTemplate('error', [
 			'message' => 'No permission' // TODO: Phrase
@@ -63,7 +63,7 @@ class Controller
 
 	public function filter($name): string
 	{
-		return \XM::app()->response()->filter($name);
+		return \XM::app()->request()->filter($name);
 	}
 
 	public function redirect($link, $params = [])
