@@ -84,10 +84,6 @@ class XM
 		$router = self::$app->router();
 
 		$router->register('/', ['controller' => 'XM\Controller\Pub\Index', 'action' => 'index']);
-		$router->register('register', ['controller' => 'XM\Controller\Pub\Register', 'action' => 'index']);
-		$router->register('members', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'index']);
-		$router->register('members/{user_id}', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'view']);
-		$router->register('members/{user_id}/edit', ['controller' => 'XM\Controller\Pub\Member', 'action' => 'edit']);
 
 		$router->dispatch($_SERVER['REQUEST_URI']);
 	}
