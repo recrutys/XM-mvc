@@ -37,11 +37,11 @@ class Auth
 
 	public static function hashPassword($password): string
 	{
-		return md5($password[0]);
+		return password_hash(md5($password), PASSWORD_BCRYPT);
 	}
 
 	public static function generateSecretKey()
 	{
-		return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 20);
+		return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 	}
 }

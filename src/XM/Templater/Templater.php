@@ -33,12 +33,12 @@ class Templater
 			}
 
 			// Add "globals" func
-			$this->templater->addFunction('xm_globals', function ()
+			$this->templater->addFunction('xm_globals', function ($key = null)
 			{
 				$app = \XM::app();
 				$request = $app->request();
 
-				return [
+				$data = [
 					'versionId' => \XM::$version,
 					'app'       => $app,
 					'request'   => $request,
@@ -49,12 +49,19 @@ class Templater
 					'session'   => $app->session(),
 					'template'  => $this->templateName ?: null
 				];
+
+				if ($key)
+				{
+					return $data[$key] ?? null;
+				}
+
+				return $data;
 			});
 
 			// Add "container" func
-			$this->templater->addFunction('xm_container', function ()
+			$this->templater->addFunction('xm_container', function ($key = null)
 			{
-				return \XM::app()->container();
+				return \XM::app()->container($key);
 			});
 		}
 
@@ -96,13 +103,22 @@ class Templater
 		return trim(\XM::app()->request()->getHostUrl() . '/' . $link, '/');
 	}
 
-	public function getLocalIncludedLessFiles()
-	{
-		return \XM::app()->container()->offsetGet('local.lessFiles');
-	}
-
 	public function getTemplateFullPath($templateName, $type = 'Pub'): string
 	{
 		return \XM::getRootDirectory() . '\internal_data\templates\\' . $type . '\\' . $templateName . '.latte';
+	}
+
+	public function getIncludedLess(): string
+	{
+		$lessFiles = \XM::app()->container('local.lessFiles');
+		$params = [];
+
+		foreach ($lessFiles as $template => $type)
+		{
+			$params[] = 'template[]=' . urlencode($template);
+			$params[] = 'type[]=' . urlencode($type);
+		}
+
+		return \XM::app()->request()->getFullRequestUri() . 'css.php?' . implode('&', $params);
 	}
 }

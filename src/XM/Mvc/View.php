@@ -31,6 +31,9 @@ class View
 	{
 		try
 		{
+			// Pre render for init
+			$this->templater->renderToString($this->templateName, $this->params);
+
 			/** @var Template $template */
 			return $this->templater->render($this->templateName, $this->params);
 		}
@@ -43,20 +46,5 @@ class View
 				]
 			);
 		}
-	}
-
-	// TODO: Use this func
-	protected function getLessUrl(): string
-	{
-		$lessFiles = \XM::app()->templater()->getLocalIncludedLessFiles();
-		$params = [];
-
-		foreach ($lessFiles as $template => $type)
-		{
-			$params[] = 'template[]=' . urlencode($template);
-			$params[] = 'type[]=' . urlencode($type);
-		}
-
-		return \XM::app()->request()->getFullRequestUri() . 'css.php?' . implode('&', $params);
 	}
 }

@@ -227,4 +227,9 @@ class App
 	{
 		return $this->container('config');
 	}
+
+	public function includedLess()
+	{
+		return $this->container('templater')->getIncludedLess();
+	}
 }
