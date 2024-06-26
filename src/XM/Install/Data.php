@@ -4,13 +4,13 @@ namespace XM\Install;
 
 use XM\Db\Schema\Definitions\Create;
 
-class Tables
+class Data
 {
 	public static function getTables(): array
 	{
 		$tables = [];
 
-		$tables['xm_users'] = function (Create $table)
+		$tables['xm_user'] = function (Create $table)
 		{
 			$table->addColumn('user_id', 'int')->autoIncrement();
 			$table->addColumn('username', 'varchar', 20);
@@ -42,5 +42,27 @@ class Tables
 		};
 
 		return $tables;
+	}
+
+	public function getLanguages(): array
+	{
+		return [
+			1 => [
+				'English' => [
+					'code' => 'en'
+				]
+			]
+		];
+	}
+
+	public function getPhrases(): array
+	{
+		return [
+			1 => [
+				'do_not_have_permission'         => 'You do not have permission to view this page or perform this action.',
+				'requested_page_not_found'       => 'The requested page could not be found.',
+				'action_available_via_post_only' => 'This action is available via POST only. Please press the back button and try again.'
+			]
+		];
 	}
 }

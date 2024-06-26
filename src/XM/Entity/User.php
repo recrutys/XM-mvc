@@ -12,7 +12,7 @@ class User extends Entity
 		$structure = new Structure();
 
 		$structure->shortName = 'XM:User';
-		$structure->table = 'xm_users';
+		$structure->table = 'xm_user';
 		$structure->primaryKey = 'user_id';
 		$structure->columns = [
 			'user_id'       => ['type' => self::INT, 'autoIncrement' => true],

@@ -73,8 +73,6 @@ class Alter extends AbstractDefinition
 
 		$query = trim($query, ', ');
 
-		dump($query);
-
 		$this->adapter->query($query);
 	}
 }
